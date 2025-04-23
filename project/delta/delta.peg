@@ -1,6 +1,10 @@
 //# Gramátoca del lenguaje delta
 
 program = expression EOF
-expression = decimal / boolean
+expression = multiplicative (('+' / '-' ) multiplicative)*
+primary = decimal / boolean
+multiplicative = primary (('*' / '/' / '%') primary)*
 decimal = r'\d+'
 boolean = 'true' / 'false'
+
+comment = r'[/][/].*|[/][*](.|\n)*?[*][/]'

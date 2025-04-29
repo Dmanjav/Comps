@@ -2,9 +2,10 @@
 
 program = expression EOF
 expression = multiplicative (('+' / '-' ) multiplicative)*
-primary = decimal / boolean
+primary = decimal / boolean / parenthesis
 multiplicative = primary (('*' / '/' / '%') primary)*
 decimal = r'\d+'
 boolean = 'true' / 'false'
+parenthesis =   '(' expression ')'
 
 comment = r'[/][/].*|[/][*](.|\n)*?[*][/]'

@@ -1,4 +1,5 @@
 from arpeggio import PTNodeVisitor
+from collections import deque
 
 
 class CodeGenerationVisitor(PTNodeVisitor):
@@ -56,3 +57,17 @@ class CodeGenerationVisitor(PTNodeVisitor):
     
     def visit_parenthesis(self, node, children):
         return children[0]
+    
+    def visit_unary(self, node, children):
+        result = deque()
+        result.append(children[-1])
+        for operator in children[-2::-1]:
+            match operator:
+                case '+':
+                    ...
+                case '-':
+                    result.appendleft('    i32.const 0\n')
+                    result.append('    i32.sub\n')
+                case '!':
+                    result.append('    i32.eqz\n')
+        return ''.join(list(result))

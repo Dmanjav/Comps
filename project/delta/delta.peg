@@ -1,12 +1,20 @@
-//# Gramátoca del lenguaje delta
+//# Gramática del lenguaje delta
 
-program = expression EOF
+program = statement* expression EOF
+statement = declaration / assignment
+declaration = 'var' decl_variable (',' decl_variable)* ';'
+decl_variable = identifier 
+assignment = lhs_variable '=' expression ';'
+lhs_variable = identifier
+rhs_variable = identifier
 expression = multiplicative (('+' / '-' ) multiplicative)*
 multiplicative = unary (('*' / '/' / '%') unary)*
 unary = ('+' / '-' / '!')* primary
-primary = decimal / boolean / parenthesis
+primary = decimal / boolean / parenthesis / rhs_variable
 decimal = r'\d+'
 boolean = 'true' / 'false'
 parenthesis =   '(' expression ')'
 
 comment = r'[/][/].*|[/][*](.|\n)*?[*][/]'
+
+identifier = r'[a-z-A-Z]\w*'

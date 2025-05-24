@@ -1,4 +1,6 @@
 //# Gramática del lenguaje delta
+# Diego Manjarrez Viveros
+# A01753486
 
 comment = r'[/][/].*|[/][*](.|\n)*?[*][/]'
 
@@ -16,14 +18,16 @@ while = 'while' expression block
 expression = multiplicative (('+' / '-' ) multiplicative)*
 multiplicative = unary (('*' / '/' / '%') unary)*
 unary = ('+' / '-' / '!')* primary
+
+comparisons = ('==' / '!=' / '<' / '>' / '<=' / '>=') 
+
 primary = decimal / binary / octal / hexadecimal /  boolean / parenthesis / rhs_variable
 decimal = r'\d+'
 
-
+# Exercise A
 binary = r'#b[01]+'
 octal = r'#o[0-7]+'
 hexadecimal = r'#x[0-9a-fA-F]+'
-
 
 boolean = 'true' / 'false'
 parenthesis =   '(' expression ')'

@@ -1,34 +1,32 @@
 //# Gramática del lenguaje delta
-# Diego Manjarrez Viveros
-# A01753486
 
 comment = r'[/][/].*|[/][*](.|\n)*?[*][/]'
 
 identifier = r'[a-z-A-Z]\w*'
 
-program = statement* expression EOF
+program = statement* comparison EOF
 statement = declaration / assignment / if / while
 declaration = 'var' decl_variable (',' decl_variable)* ';'
 decl_variable = identifier 
-assignment = lhs_variable '=' expression ';'
+assignment = lhs_variable '=' comparison ';'
 lhs_variable = identifier
-if = 'if' expression block ('else' block)?
+if = 'if' comparison block ('else' block)?
 block = '{' statement* '}'
-while = 'while' expression block
+while = 'while' comparison block
+
+comparison = expression (('==' / '!=' / '<' / '<=' / '>'  / '>=') expression)*
+
 expression = multiplicative (('+' / '-' ) multiplicative)*
 multiplicative = unary (('*' / '/' / '%') unary)*
 unary = ('+' / '-' / '!')* primary
 
-comparisons = ('==' / '!=' / '<' / '>' / '<=' / '>=') 
-
 primary = decimal / binary / octal / hexadecimal /  boolean / parenthesis / rhs_variable
 decimal = r'\d+'
 
-# Exercise A
 binary = r'#b[01]+'
 octal = r'#o[0-7]+'
 hexadecimal = r'#x[0-9a-fA-F]+'
 
 boolean = 'true' / 'false'
-parenthesis =   '(' expression ')'
+parenthesis =   '(' comparison ')'
 rhs_variable = identifier

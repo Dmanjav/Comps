@@ -1,6 +1,6 @@
 from delta import Compiler, Phase
 
-source = "#b110"
+source = "2 + 3 <= 5"
 
 c = Compiler('program')
 c.realize(source, Phase.CODE_GENERATION)

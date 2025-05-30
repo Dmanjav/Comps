@@ -83,6 +83,4 @@ class SemanticVisitor(PTNodeVisitor):
             raise SemanticMistake(
                 'Undeclared variable reference at position '
                 f'{self.position(node)} => {name}'
-            )
-    
-    
+            )    

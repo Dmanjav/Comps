@@ -13,20 +13,15 @@ lhs_variable = identifier
 if = 'if' comparison block ('else' block)?
 block = '{' statement* '}'
 while = 'while' comparison block
-
-comparison = expression (('==' / '!=' / '<' / '<=' / '>'  / '>=') expression)*
-
+comparison = expression (('==' / '!=' / "<=" / '<' /  ">=" / '>') expression)*
 expression = multiplicative (('+' / '-' ) multiplicative)*
 multiplicative = unary (('*' / '/' / '%') unary)*
 unary = ('+' / '-' / '!')* primary
-
 primary = decimal / binary / octal / hexadecimal /  boolean / parenthesis / rhs_variable
 decimal = r'\d+'
-
 binary = r'#b[01]+'
 octal = r'#o[0-7]+'
 hexadecimal = r'#x[0-9a-fA-F]+'
-
 boolean = 'true' / 'false'
-parenthesis =   '(' comparison ')'
+parenthesis = '(' comparison ')'
 rhs_variable = identifier

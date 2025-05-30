@@ -39,6 +39,25 @@ class CodeGenerationVisitor(PTNodeVisitor):
     def visit_lhs_variable(self, node, children):
         name = node.value
         return f'    local.set ${name}\n'
+    
+    def visit_comparison(self, node, children):
+        result = [children[0]]
+        for i in range(1, len(children), 2):
+            result.append(children[i + 1])
+            match children[i]:
+                case '==':
+                    result.append('    i32.eq\n')
+                case '!=':
+                    result.append('    i32.ne\n')
+                case '>=':
+                    result.append('    i32.ge_s\n')
+                case '>':
+                    result.append('    i32.gt_s\n')
+                case '<=':
+                    result.append('    i32.le_s\n')
+                case '<':
+                    result.append('    i32.lt_s\n')
+        return ''.join(result)
 
     def visit_additive(self, node, children):
         result = [children[0]]
@@ -83,6 +102,15 @@ class CodeGenerationVisitor(PTNodeVisitor):
 
     def visit_decimal(self, node, children):
         return f'    i32.const {node.value}\n'
+    
+    def visit_binary(self, node, children):
+        return f'    i32.const {int(node.value[2:], 2)}\n'
+    
+    def visit_octal(self, node, children):
+        return f'    i32.const {int(node.value[2:], 8)}\n'
+    
+    def visit_hexadecimal(self, node, children):
+        return f'    i32.const {int(node.value[2:], 16)}\n'
 
     def visit_boolean(self, node, children):
         if children[0] == 'true':

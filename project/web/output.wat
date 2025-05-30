@@ -3,27 +3,10 @@
   (func
     (export "_start")
     (result i32)
-    (local $t i32)
-    (local $u i32)
-    i32.const 0
-    local.set $t
-    i32.const 1
-    local.set $u
-    local.get $u
-    if (result i32)
-    local.get $t
-    i32.eqz
-    if (result i32)
-    local.get $u
-    local.get $t
-    i32.div_s
-    i32.eqz
-    i32.eqz
-    else
-    i32.const 0
-    end
-    else
-    i32.const 0
-    end
+    i32.const 4
+    i32.const 3
+    i32.const 2
+    i32.add
+    i32.ne
   )
 )

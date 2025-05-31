@@ -125,6 +125,9 @@ class CodeGenerationVisitor(PTNodeVisitor):
         return f'    local.get ${name}\n'
     
     def visit_if(self, node, children):
+        # print(children)
+        # return ''
+        
         result = (
             children[0] 
             + '    if\n'
@@ -136,6 +139,24 @@ class CodeGenerationVisitor(PTNodeVisitor):
             )
         result += '    end\n'
         return result
+        
+        # result = (
+        #     children[0] 
+        #     + '    if\n'
+        #     + children[1])
+        # for i in range(2, len(children) - 1, 2):
+        #     result += (
+        #         '    else\n'
+        #         + children[i]
+        #         + '    if\n'
+        #         + children[i + 1])
+        # if len(children) <= 5:
+        #     result += (
+        #         '    else\n'
+        #         + children[-1]
+        #     )
+        # result += '    end\n'
+        # return result
     
     def visit_block(self, node, children):
         return ''.join(children)

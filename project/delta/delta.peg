@@ -10,7 +10,7 @@ declaration = 'var' decl_variable (',' decl_variable)* ';'
 decl_variable = identifier 
 assignment = lhs_variable '=' expression ';'
 lhs_variable = identifier
-if = 'if' expression block ('else' block)?
+if = 'if' expression block ('else' (if / block))?
 block = '{' statement* '}'
 while = 'while' expression block
 expression = comparison ('&&' comparison)*

@@ -186,3 +186,12 @@ class CodeGenerationVisitor(PTNodeVisitor):
                        '    i32.const 0\n'
                        '    end\n') * (len(children) - 1))
         return ''.join(result)
+    
+    def visit_do_while(self, node, children):
+        return (
+            '    loop\n'
+            + children[0]
+            + children[1]
+            + '    br_if 0\n'
+            + '    end\n'
+        )

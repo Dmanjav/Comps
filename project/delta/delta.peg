@@ -14,7 +14,7 @@ if = 'if' expression block ('else' (if / block))?
 block = '{' statement* '}'
 do_while = 'do' block 'while' expression ';'
 while = 'while' expression block
-expression = comparison ('&&' comparison)*
+expression = comparison (('&&' / '||' ) comparison)*
 comparison = additive (('==' / '!=' / "<=" / '<' /  ">=" / '>') additive)*
 additive = multiplicative (('+' / '-' ) multiplicative)*
 multiplicative = unary (('*' / '/' / '%') unary)*

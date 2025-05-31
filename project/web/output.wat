@@ -3,24 +3,25 @@
   (func
     (export "_start")
     (result i32)
-    (local $x i32)
-    (local $y i32)
-    i32.const 1
-    local.set $x
+    (local $t i32)
+    (local $u i32)
     i32.const 0
-    local.set $y
-    loop
-    local.get $x
+    local.set $t
     i32.const 1
-    i32.sub
-    local.set $x
+    local.set $u
+    local.get $u
+    i32.eqz
+    if (result i32)
     i32.const 1
-    local.set $y
-    local.get $x
-    br_if 0
+    else
+    local.get $t
     end
-    local.get $x
-    local.get $y
-    i32.add
+    if (result i32)
+    i32.const 1
+    else
+    local.get $u
+    local.get $t
+    i32.div_s
+    end
   )
 )

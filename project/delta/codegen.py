@@ -177,14 +177,33 @@ class CodeGenerationVisitor(PTNodeVisitor):
     def visit_expression(self, node, children):
         if len(children) == 1:
             return children[0]
+
         result = [children[0]]
+        
+        operators = []
+        conditions = []
         for exp in children[1:]:
-            result.append('    if (result i32)\n')
-            result.append(exp)
-        result.append('    i32.eqz\n' * 2)
-        result.append(('    else\n'
-                       '    i32.const 0\n'
-                       '    end\n') * (len(children) - 1))
+            if exp == '&&' or exp == '||':
+                operators.append(exp)
+            else:
+                conditions.append(exp)
+
+        for i in range(len(operators)):
+            op = operators[i]
+            cond = conditions[i]
+            
+            if op == '&&':
+                result.append('    if (result i32)\n')
+                result.append(cond)
+                result.append('    else\n')
+                result.append('    i32.const 0\n')
+                result.append('    end\n')
+            elif op == '||':
+                result.append('    if (result i32)\n')
+                result.append('    i32.const 1\n')
+                result.append('    else\n')
+                result.append(cond)
+                result.append('    end\n')
         return ''.join(result)
     
     def visit_do_while(self, node, children):

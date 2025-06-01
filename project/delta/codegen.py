@@ -1,3 +1,6 @@
+# Diego Manjarrez VIveros
+# A01753486
+
 from arpeggio import PTNodeVisitor
 from collections import deque
 
@@ -175,6 +178,34 @@ class CodeGenerationVisitor(PTNodeVisitor):
         )
         
     def visit_expression(self, node, children):
+        if len(children) == 1: 
+            return children [0]
+        result = [children[0]]
+        for exp in children [1:]:
+            result += (
+                '    if (result i32) \n'
+                + '    i32.const 1\n'
+                + '    else\n'
+                + exp
+            )
+        result.append('    i32.eqz\n' * 2)
+        result.append(('    end\n' * (len(children) - 1)))
+        return ''. join(result)
+        
+    def visit_or(self, node, children):
+        if len(children) == 1: 
+            return children [0]
+        result = [children [0]]
+        for exp in children[1:]:
+            result.append('    if (result i32)\n')
+            result.append(exp)
+        result.append('    i32.const 1\n' * 2)
+        result.append(('    else\n'
+                       '    i32.eqz\n'
+                       '   end\n') * (len(children) - 1))
+        return ''. join(result)
+    
+    def visit_and(self, node, children):
         if len(children) == 1:
             return children[0]
         result = [children[0]]

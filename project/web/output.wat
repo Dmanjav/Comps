@@ -11,17 +11,19 @@
     local.set $u
     local.get $u
     i32.eqz
-    if (result i32)
+    if (result i32) 
     i32.const 1
     else
     local.get $t
-    end
-    if (result i32)
+    if (result i32) 
     i32.const 1
     else
     local.get $u
     local.get $t
     i32.div_s
+    i32.eqz
+    i32.eqz
+    end
     end
   )
 )
